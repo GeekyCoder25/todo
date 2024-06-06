@@ -3,6 +3,12 @@ const express = require('express');
 const cors = require('cors');
 const dotEnv = require('dotenv');
 const mongoose = require('mongoose');
+const {
+	getAllTodo,
+	postTodo,
+	updateTodo,
+	deleteTodo,
+} = require('./controllers/todoController');
 require('colors');
 dotEnv.config();
 
@@ -33,6 +39,13 @@ mongoose
 app.get('/api', (req, res) => {
 	res.send({app: 'Todo API running'});
 });
+app
+	.route('/api/todo')
+	.get(getAllTodo)
+	.post(postTodo)
+	.put(updateTodo)
+	.patch(updateTodo)
+	.delete(deleteTodo);
 
 app.all('*', (req, res) => {
 	res
